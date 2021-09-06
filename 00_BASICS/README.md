@@ -215,5 +215,43 @@ You will get the following response:
     "success": true
 }
 ```
+### Seving to JavaScript 
+Installing flask-cors so that we will be able to make request to this server in without cors error
 
+```shell
+pip install -U flask-cors
+```
+
+### index.html
+Our index.html will be looking as follows:
+
+````html
+ <body>
+    <input type="file" id="input" />
+    <button type="button" id="btn">predict</button>
+
+    <script src="index.js"></script>
+  </body>
+````
+### index.js
+Our ``index.js`` will be looking as follows, note that we are submitting without the use of the form to avoid refreshing.
+
+```js
+console.log("index.js");
+
+const btn = document.getElementById("btn");
+
+btn.addEventListener("click", () => {
+  const input = document.getElementById("input").files[0];
+  let formData = new FormData();
+  formData.append("image", input);
+  fetch("http://localhost:3001/predict", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data));
+});
+
+```
 That's all for today, Next we are going to look at the [this](https://www.pyimagesearch.com/2018/01/29/scalable-keras-deep-learning-rest-api/) post and see how we can do the same task at a scalable level.

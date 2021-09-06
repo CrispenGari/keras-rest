@@ -15,7 +15,10 @@ from tensorflow.keras.applications import imagenet_utils
 from tensorflow.keras.preprocessing.image import img_to_array
 
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS, cross_origin
+
 app = Flask(__name__)
+CORS(app)
 model = None
 
 import flask
